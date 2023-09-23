@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test/widgets/button.dart';
 import 'package:test/widgets/list_view.dart';
 
 void main() {
@@ -35,15 +34,19 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    setState(
+      () {
+        _counter++;
+      },
+    );
   }
 
   void _decrementCounter() {
-    setState(() {
-      if (_counter > 0) _counter--;
-    });
+    setState(
+      () {
+        if (_counter > 0) _counter--;
+      },
+    );
   }
 
   // @override
