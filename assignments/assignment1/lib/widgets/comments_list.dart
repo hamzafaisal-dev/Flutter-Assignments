@@ -11,8 +11,12 @@ Future<List<Comments>> fetchComments() async {
   );
 
   if (response.statusCode == 200) {
+    // converts stringified res body to JSON
     List<dynamic> parsedListJson = jsonDecode(response.body);
 
+//map function always returns an Iterable.
+//.from() is a constructor given by List. It takes in an Iterable as param and returns a List. It iterates over each item in iterable and adds them to the newly created List
+// List<Comments> ensures that this List will only contain elements of type Comments
     List<Comments> commentsList = List<Comments>.from(
       parsedListJson.map(
         (dynamic comment) => Comments.fromJson(comment),
@@ -33,11 +37,14 @@ class CommentsList extends StatefulWidget {
 }
 
 class _CommentsListState extends State<CommentsList> {
+  //late keyword tells Flutter that there is no initial value for this variable but it will have a value before it is used for the first time
   late Future<List<Comments>> _loadedComments;
 
   @override
   void initState() {
     super.initState();
+
+    // fetch data once upon initial render and store for future use
     _loadedComments = fetchComments();
   }
 
