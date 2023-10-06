@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:class_work/models/cards.dart';
+import 'package:class_work/widgets/grid_card.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Cards>> fetchAlbum() async {
-  final response =
-      await http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums'));
+  final response = await http.get(
+    Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+  );
 
   if (response.statusCode == 200) {
     List<dynamic> parsedListJson = jsonDecode(response.body);
@@ -53,45 +55,18 @@ class _CardsGridState extends State<CardsGrid> {
           }
 
           if (snapshot.hasData) {
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, index) {
+                  var card = snapshot.data![index];
+
+                  return GridCard(title: card.title);
+                },
               ),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'lib/assets/literally_me.jpg',
-                        scale: 5,
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                snapshot.data![index].id.toString(),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                snapshot.data![index].title,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
             );
           }
           return const CircularProgressIndicator();
