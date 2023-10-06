@@ -14,8 +14,8 @@ Future<List<Comments>> fetchComments() async {
     // converts stringified res body to JSON
     List<dynamic> parsedListJson = jsonDecode(response.body);
 
-//map function always returns an Iterable.
-//.from() is a constructor given by List. It takes in an Iterable as param and returns a List. It iterates over each item in iterable and adds them to the newly created List
+// map function always returns an Iterable.
+// .from() is a constructor given by List. It takes in an Iterable as param and returns a List. It iterates over each item in iterable and adds them to the newly created List
 // List<Comments> ensures that this List will only contain elements of type Comments
     List<Comments> commentsList = List<Comments>.from(
       parsedListJson.map(
