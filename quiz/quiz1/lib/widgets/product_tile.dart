@@ -29,36 +29,73 @@ class ProductTile extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Wrap(
           children: [
-            Column(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    SizedBox(child: Image.network(imageLink)),
-                    Expanded(child: Text('$name\n$description'))
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: Text('Brand: $brand')),
-                    Expanded(child: Text('Price: \$$price'))
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: Text('Product type: $productType')),
-                    Expanded(child: Text('Rating: $rating'))
-                  ],
-                ),
-                const Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.red,
+                SizedBox(
+                    height: 100, width: 100, child: Image.network(imageLink)),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(description),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text('Brand: $brand'.toUpperCase())),
+                Expanded(child: Text('Price: \$$price'))
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'Product Type: ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: productType.toUpperCase(),
+                          style: TextStyle(color: Colors.pink[100]),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
+                ),
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                            text: 'Rating: ',
+                            style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                          text: rating.toString(),
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.red,
                 )
               ],
             )
@@ -70,26 +107,23 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: ListTile(
-        leading: SizedBox(
-          height: 45,
-          width: 45,
-          child: Image.network(
-            imageLink,
-            fit: BoxFit.contain,
-          ),
+    return ListTile(
+      leading: SizedBox(
+        height: 50,
+        width: 50,
+        child: Image.network(
+          imageLink,
+          fit: BoxFit.contain,
         ),
-        title: Text(name),
-        trailing: Text(
-          '\$ $price',
-          style: const TextStyle(fontSize: 15),
-        ),
-        onTap: () {
-          showDetailsModal(context);
-        },
       ),
+      title: Text(name),
+      trailing: Text(
+        '\$ $price',
+        style: const TextStyle(fontSize: 15),
+      ),
+      onTap: () {
+        showDetailsModal(context);
+      },
     );
   }
 }
