@@ -19,7 +19,7 @@ class ProductTile extends StatelessWidget {
   final String description;
   final String productType;
   final double rating;
-  final List productColors;
+  final List<dynamic> productColors;
   final String brand;
 
   void showDetailsModal(context) {
@@ -33,13 +33,15 @@ class ProductTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                    height: 100, width: 100, child: Image.network(imageLink)),
+                    height: 90, width: 90, child: Image.network(imageLink)),
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         name,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(description),
                     ],
@@ -47,7 +49,7 @@ class ProductTile extends StatelessWidget {
                 )
               ],
             ),
-            const SizedBox(height: 30),
+            Container(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -55,7 +57,7 @@ class ProductTile extends StatelessWidget {
                 Expanded(child: Text('Price: \$$price'))
               ],
             ),
-            const SizedBox(height: 20),
+            Container(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -92,11 +94,19 @@ class ProductTile extends StatelessWidget {
                 )
               ],
             ),
-            const Row(
+            Container(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.red,
-                )
+                ...productColors.map(
+                  (color) {
+                    return CircleAvatar(
+                      backgroundColor: Color(
+                          int.parse(color.hexValue.substring(1, 7), radix: 16) +
+                              0xFF000000),
+                    );
+                  },
+                ),
               ],
             )
           ],
