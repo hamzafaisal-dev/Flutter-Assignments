@@ -50,14 +50,14 @@ class ProductTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(child: Text('Product type: $productType')),
-                    Expanded(child: Text('Rating: \$$rating'))
+                    Expanded(child: Text('Rating: $rating'))
                   ],
                 ),
                 const Row(
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.red,
-                    )
+                    ),
                   ],
                 )
               ],
