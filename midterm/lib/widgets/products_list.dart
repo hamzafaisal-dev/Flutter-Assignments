@@ -37,6 +37,20 @@ class _ProductsListState extends State<ProductsList> {
         padding: const EdgeInsets.all(16),
         child: Wrap(
           children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ...product.images.map(
+                    (image) => Image.network(
+                      image,
+                      fit: BoxFit.cover,
+                      scale: 3,
+                    ),
+                  )
+                ],
+              ),
+            ),
             Row(
               children: [
                 Text(
