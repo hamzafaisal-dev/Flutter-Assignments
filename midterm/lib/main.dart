@@ -19,8 +19,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          leading: const Icon(Icons.menu),
-          title: const Text('Midterm'),
+          title: const Text('Products'),
         ),
         body: const ProductsList(),
       ),

@@ -45,7 +45,7 @@ class _ProductsListState extends State<ProductsList> {
                     (image) => Image.network(
                       image,
                       fit: BoxFit.cover,
-                      scale: 2,
+                      scale: 2.5,
                     ),
                   )
                 ],
@@ -124,69 +124,63 @@ class _ProductsListState extends State<ProductsList> {
 
         if (snapshot.hasData) {
           return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                var product = snapshot.data![index];
-                return Card(
-                  color: Colors.lightBlue[100],
-                  child: Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          // Container(
-                          //   child: Image.network(
-                          //     product.thumbnail!,
-                          //     fit: BoxFit.contain,
-                          //   ),
-                          // ),
-                          FittedBox(
-                            // TRY THIS: Try changing the fit types to see how they change the way
-                            // the placeholder fits into the container.
-                            fit: BoxFit.fill,
-                            child: Image.network(
-                              product.thumbnail!,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              var product = snapshot.data![index];
+              return Card(
+                color: Colors.lightBlue[100],
+                child: Container(
+                  child: Column(
+                    children: [
+                      // Container(
+                      //   child: Image.network(
+                      //     product.thumbnail!,
+                      //     fit: BoxFit.contain,
+                      //   ),
+                      // ),
+                      FittedBox(
+                        fit: BoxFit.fill,
+                        child: Image.network(
+                          product.thumbnail!,
+                        ),
+                      ),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                product.title,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                children: [
-                                  Text('${product.price} USD'),
-                                  const SizedBox(width: 5),
-                                  IconButton(
-                                    onPressed: () {
-                                      openModal(context, product);
-                                    },
-                                    icon:
-                                        const Icon(Icons.remove_red_eye_sharp),
-                                  )
-                                ],
-                              )
-                            ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            product.title,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 6),
                           Row(
                             children: [
-                              Expanded(
-                                child: Text(product.description!),
-                              ),
+                              Text('${product.price} USD'),
+                              const SizedBox(width: 5),
+                              IconButton(
+                                onPressed: () {
+                                  openModal(context, product);
+                                },
+                                icon: const Icon(Icons.remove_red_eye_sharp),
+                              )
                             ],
                           )
                         ],
                       ),
-                    ),
+
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(product.description!),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                );
-              });
+                ),
+              );
+            },
+          );
         }
 
         return const Center(
