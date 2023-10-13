@@ -45,7 +45,7 @@ class _ProductsListState extends State<ProductsList> {
                     (image) => Image.network(
                       image,
                       fit: BoxFit.cover,
-                      scale: 3,
+                      scale: 2,
                     ),
                   )
                 ],
@@ -56,6 +56,7 @@ class _ProductsListState extends State<ProductsList> {
                 Text(
                   product.title,
                   style: const TextStyle(fontWeight: FontWeight.bold),
+                  maxLines: 20,
                 ),
               ],
             ),
@@ -113,64 +114,87 @@ class _ProductsListState extends State<ProductsList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: products,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  var product = snapshot.data![index];
-                  return Card(
-                    color: Colors.lightBlue[100],
-                    child: Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Image.network(
-                                product.thumbnail!,
-                                fit: BoxFit.cover,
+      future: products,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text(
+            snapshot.error.toString(),
+          );
+        }
+
+        if (snapshot.hasData) {
+          return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                var product = snapshot.data![index];
+                return Card(
+                  color: Colors.lightBlue[100],
+                  child: Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: Container(
+                      child: Column(
+                        children: [
+                          // Container(
+                          //   child: Image.network(
+                          //     product.thumbnail!,
+                          //     fit: BoxFit.contain,
+                          //   ),
+                          // ),
+                          FittedBox(
+                            // TRY THIS: Try changing the fit types to see how they change the way
+                            // the placeholder fits into the container.
+                            fit: BoxFit.fill,
+                            child: Image.network(
+                              product.thumbnail!,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                product.title,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  product.title,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    Text('${product.price} USD'),
-                                    SizedBox(width: 5),
-                                    IconButton(
-                                      onPressed: () {
-                                        openModal(context, product);
-                                      },
-                                      icon: Icon(Icons.remove_red_eye_sharp),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(product.description!),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+                              Row(
+                                children: [
+                                  Text('${product.price} USD'),
+                                  const SizedBox(width: 5),
+                                  IconButton(
+                                    onPressed: () {
+                                      openModal(context, product);
+                                    },
+                                    icon:
+                                        const Icon(Icons.remove_red_eye_sharp),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(product.description!),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                  );
-                });
-          }
+                  ),
+                );
+              });
+        }
 
-          return CircularProgressIndicator();
-        });
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.blue,
+          ),
+        );
+      },
+    );
   }
 }
