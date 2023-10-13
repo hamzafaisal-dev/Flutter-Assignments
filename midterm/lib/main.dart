@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm/widgets/products_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +18,11 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          leading: const Icon(Icons.menu),
           title: const Text('Midterm'),
         ),
-        body: const Text('Hello World'),
+        body: const ProductsList(),
       ),
     );
   }
