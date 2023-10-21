@@ -1,7 +1,7 @@
 import 'package:assignment2/screens/login_screen.dart';
 import 'package:assignment2/widgets/email_input_field.dart';
-import 'package:assignment2/widgets/login_button.dart';
 import 'package:assignment2/widgets/password_input_field.dart';
+import 'package:assignment2/widgets/signup_button.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -40,21 +40,23 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 45),
                   const EmailInput(),
-                  const SizedBox(height: 30),
                   const Row(
                     children: [
                       Expanded(
                         child: PasswordInput(
-                            label: 'Password', hintText: 'Create Password'),
+                          label: 'Password',
+                          hintText: 'Create Password',
+                        ),
                       ),
                       SizedBox(width: 35),
                       Expanded(
                         child: PasswordInput(
-                            label: 'Password', hintText: 'Confirm Password'),
+                          label: 'Password',
+                          hintText: 'Confirm Password',
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 25),
                   const SignUpButton(),
                   const SizedBox(height: 20),
                   Row(

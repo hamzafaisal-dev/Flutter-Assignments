@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         primaryColorDark: Colors.deepPurple,
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const LoginScreen(),
     );
   }

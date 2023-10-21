@@ -1,42 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class EmailInput extends StatelessWidget {
+class EmailInput extends StatefulWidget {
   const EmailInput({super.key});
 
   @override
+  State<EmailInput> createState() => _EmailInputState();
+}
+
+class _EmailInputState extends State<EmailInput> {
+  bool _showError = false;
+
+  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      maxLength: 50,
-      decoration: InputDecoration(
-        label: Text(
-          'Email',
-          style: TextStyle(
-            color: Theme.of(context).primaryColorDark,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextFormField(
+          // maxLength: 50,
+          onChanged: (email) {
+            setState(() {
+              _showError = email.length > 50;
+            });
+          },
+          decoration: InputDecoration(
+            label: Text(
+              'Email',
+              style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+              ),
+            ),
+            fillColor: Colors.white,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Theme.of(context).primaryColorDark,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Theme.of(context).primaryColorDark,
+                // width: 2.0,
+              ),
+            ),
           ),
+          buildCounter: (
+            context, {
+            required currentLength,
+            maxLength,
+            required isFocused,
+          }) =>
+              null,
         ),
-        fillColor: Colors.white,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColorDark,
-          ),
+        const SizedBox(height: 2),
+        Text(
+          _showError ? 'Email cannot exceed 50 characters*' : '',
+          style: const TextStyle(color: Color.fromARGB(255, 221, 27, 13)),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColorDark,
-            // width: 2.0,
-          ),
-        ),
-      ),
-      buildCounter: (
-        context, {
-        required currentLength,
-        maxLength,
-        required isFocused,
-      }) =>
-          null,
+      ],
     );
   }
 }
