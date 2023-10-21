@@ -30,7 +30,7 @@ class _PasswordInputState extends State<PasswordInput> {
             label: Text(
               widget.label,
               style: TextStyle(
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             hintText: widget.hintText ?? "",
@@ -39,13 +39,13 @@ class _PasswordInputState extends State<PasswordInput> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
           ),

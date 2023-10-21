@@ -26,20 +26,20 @@ class _EmailInputState extends State<EmailInput> {
             label: Text(
               'Email',
               style: TextStyle(
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             fillColor: Colors.white,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorLight,
                 // width: 2.0,
               ),
             ),
@@ -53,9 +53,12 @@ class _EmailInputState extends State<EmailInput> {
               null,
         ),
         const SizedBox(height: 2),
-        Text(
-          _showError ? 'Email cannot exceed 50 characters*' : '',
-          style: const TextStyle(color: Color.fromARGB(255, 221, 27, 13)),
+        Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Text(
+            _showError ? 'Email cannot exceed 50 characters*' : '',
+            style: const TextStyle(color: Color.fromARGB(255, 221, 27, 13)),
+          ),
         ),
       ],
     );

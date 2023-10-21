@@ -2,15 +2,24 @@ import 'package:assignment2/screens/signup_screen.dart';
 import 'package:assignment2/widgets/email_input_field.dart';
 import 'package:assignment2/widgets/login_button.dart';
 import 'package:assignment2/widgets/password_input_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  var brightnessToggleIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F4F4),
+      backgroundColor: brightnessToggleIndex == 1 ? Colors.white : Colors.black,
       body: SafeArea(
         top: false,
         child: ListView(
@@ -19,7 +28,7 @@ class LoginScreen extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(left: 20, top: 5),
               child: Image.asset(
-                'assets/asset1.jpg',
+                'assets/asset1-removebg-preview.png',
               ),
             ),
             Padding(
@@ -27,14 +36,39 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Log In',
                         style: TextStyle(
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).primaryColorLight,
                           fontSize: 30.0,
                           fontWeight: FontWeight.w400,
                         ),
+                      ),
+                      ToggleSwitch(
+                        minWidth: 50.0,
+                        initialLabelIndex: 1,
+                        cornerRadius: 20.0,
+                        activeFgColor: Colors.black,
+                        inactiveBgColor: Colors.grey,
+                        inactiveFgColor: Colors.white,
+                        totalSwitches: 2,
+                        icons: const [
+                          Icons.brightness_3,
+                          Icons.brightness_6_sharp
+                        ],
+                        activeBgColors: const [
+                          [Colors.blue],
+                          [Color.fromARGB(255, 255, 237, 73)]
+                        ],
+                        onToggle: (index) {
+                          setState(() {
+                            brightnessToggleIndex = index!;
+                          });
+
+                          // print(brightnessToggleIndex);
+                        },
                       ),
                     ],
                   ),
@@ -48,11 +82,11 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const SignUpScreen(),
-                            ),
-                          );
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const SignUpScreen(),
+                          //   ),
+                          // );
                         },
                         child: RichText(
                           text: TextSpan(
@@ -64,8 +98,15 @@ class LoginScreen extends StatelessWidget {
                               TextSpan(
                                 text: 'Sign Up',
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColorDark,
+                                  color: Theme.of(context).primaryColorLight,
                                 ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SignUpScreen(),
+                                        ),
+                                      ),
                               ),
                             ],
                           ),
@@ -80,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                         text: TextSpan(
                           text: 'Forgot password?',
                           style: TextStyle(
-                            color: Theme.of(context).primaryColorDark,
+                            color: Theme.of(context).primaryColorLight,
                           ),
                         ),
                       )
