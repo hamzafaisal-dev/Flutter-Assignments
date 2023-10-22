@@ -7,8 +7,9 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton(
       style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all(Theme.of(context).primaryColor),
+        backgroundColor: MaterialStateProperty.all(
+          Theme.of(context).colorScheme.primary,
+        ),
       ),
       onPressed: () {},
       child: const Row(

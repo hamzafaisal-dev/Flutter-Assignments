@@ -22,28 +22,30 @@ class _EmailInputState extends State<EmailInput> {
               _showError = email.length > 50;
             });
           },
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
           decoration: InputDecoration(
             label: Text(
               'Email',
               style: TextStyle(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            fillColor: Colors.white,
+            fillColor: Theme.of(context).colorScheme.background,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).colorScheme.primary,
                 // width: 2.0,
               ),
             ),
           ),
+          keyboardType: TextInputType.emailAddress,
           buildCounter: (
             context, {
             required currentLength,

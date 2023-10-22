@@ -25,11 +25,39 @@ class _LoginScreenState extends State<LoginScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            Container(
-              margin: const EdgeInsets.only(left: 20, top: 5),
-              child: Image.asset(
-                'assets/asset1-removebg-preview.png',
-              ),
+            Stack(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 20, top: 5),
+                  child: Image.asset(
+                    'assets/asset1-removebg-preview.png',
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 8, top: 30),
+                  child: ToggleSwitch(
+                    minWidth: 50.0,
+                    initialLabelIndex: brightnessToggleIndex,
+                    cornerRadius: 20.0,
+                    activeFgColor: Colors.black,
+                    inactiveBgColor: Colors.grey,
+                    inactiveFgColor: Colors.white,
+                    totalSwitches: 2,
+                    icons: const [Icons.brightness_3, Icons.brightness_6_sharp],
+                    activeBgColors: const [
+                      [Colors.blue],
+                      [Color.fromARGB(255, 255, 237, 73)]
+                    ],
+                    onToggle: (index) {
+                      setState(() {
+                        brightnessToggleIndex = index!;
+                      });
+
+                      // print(brightnessToggleIndex);
+                    },
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -41,34 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         'Log In',
                         style: TextStyle(
-                          color: Theme.of(context).primaryColorLight,
+                          color: Theme.of(context).colorScheme.primary,
                           fontSize: 30.0,
                           fontWeight: FontWeight.w400,
                         ),
-                      ),
-                      ToggleSwitch(
-                        minWidth: 50.0,
-                        initialLabelIndex: 1,
-                        cornerRadius: 20.0,
-                        activeFgColor: Colors.black,
-                        inactiveBgColor: Colors.grey,
-                        inactiveFgColor: Colors.white,
-                        totalSwitches: 2,
-                        icons: const [
-                          Icons.brightness_3,
-                          Icons.brightness_6_sharp
-                        ],
-                        activeBgColors: const [
-                          [Colors.blue],
-                          [Color.fromARGB(255, 255, 237, 73)]
-                        ],
-                        onToggle: (index) {
-                          setState(() {
-                            brightnessToggleIndex = index!;
-                          });
-
-                          // print(brightnessToggleIndex);
-                        },
                       ),
                     ],
                   ),
@@ -98,10 +102,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               TextSpan(
                                 text: 'Sign Up',
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColorLight,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () => Navigator.of(context).push(
+                                  ..onTap = () =>
+                                      Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               const SignUpScreen(),
@@ -121,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: TextSpan(
                           text: 'Forgot password?',
                           style: TextStyle(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       )

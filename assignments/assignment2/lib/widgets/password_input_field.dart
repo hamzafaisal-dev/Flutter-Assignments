@@ -26,26 +26,27 @@ class _PasswordInputState extends State<PasswordInput> {
               _showError = password.length > 20;
             });
           },
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
           decoration: InputDecoration(
             label: Text(
               widget.label,
               style: TextStyle(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             hintText: widget.hintText ?? "",
             hintStyle: const TextStyle(fontSize: 12),
-            fillColor: Colors.white,
+            fillColor: Theme.of(context).colorScheme.background,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
