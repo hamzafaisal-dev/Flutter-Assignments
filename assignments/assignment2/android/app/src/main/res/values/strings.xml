@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<string name="app_name">Dummy</string>
+<string name="facebook_app_id">7510740625607492</string>
+<string name="fb_login_protocol_scheme">fb7510740625607492</string>
+<string name="facebook_client_token">2bcd94d8abec17509b573338ea9e24ef</string>
+
+</resources>

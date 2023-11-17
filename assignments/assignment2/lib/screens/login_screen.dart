@@ -2,9 +2,15 @@ import 'package:assignment2/screens/signup_screen.dart';
 import 'package:assignment2/widgets/email_input_field.dart';
 import 'package:assignment2/widgets/login_button.dart';
 import 'package:assignment2/widgets/password_input_field.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
+final _firebase = FirebaseAuth.instance;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +21,59 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var brightnessToggleIndex = 1;
+  late String emailAddress;
+  late String password;
+
+  late Map<String, dynamic> _userData;
+  AccessToken? _accessToken;
+
+  void login() async {
+    final userCredentials = await _firebase.signInWithEmailAndPassword(
+      email: emailAddress,
+      password: password,
+    );
+  }
+  //https://fir-class-work-87464.firebaseapp.com/__/auth/handler
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    if (loginResult.status == LoginStatus.success) {
+      _accessToken = loginResult.accessToken;
+
+      final userData = await FacebookAuth.instance.getUserData();
+      _userData = userData;
+    } else {
+      print(loginResult.status);
+      print(loginResult.message);
+    }
+
+    // Create  a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(_accessToken!.token);
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         brightnessToggleIndex = index!;
                       });
-
-                      // print(brightnessToggleIndex);
                     },
                   ),
                 ),
@@ -77,21 +134,82 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 45),
-                  const EmailInput(),
-                  const PasswordInput(label: 'Password', hintText: null),
-                  // const SizedBox(height: 25),
-                  const LoginButton(),
+                  EmailInput(
+                    setEmail: (email) {
+                      emailAddress = email;
+                    },
+                  ),
+                  PasswordInput(
+                    label: 'Password',
+                    hintText: 'Create Password',
+                    setPassword: (pass) {
+                      password = pass;
+                    },
+                  ),
+                  // LOGIN button
+                  FilledButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    onPressed: login,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(18),
+                          child: Text(
+                            'Sign In',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: OutlinedButton(
+                      onPressed: signInWithGoogle,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 10),
+                          Text(
+                            'Sign-In with Google',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: OutlinedButton(
+                      onPressed: signInWithFacebook,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 10),
+                          Text(
+                            'Sign-In with Facebook',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
                   const SizedBox(height: 20),
                   Row(
                     children: [
                       InkWell(
-                        onTap: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const SignUpScreen(),
-                          //   ),
-                          // );
-                        },
+                        onTap: () {},
                         child: RichText(
                           text: TextSpan(
                             text: 'Don\'t have an account? ',

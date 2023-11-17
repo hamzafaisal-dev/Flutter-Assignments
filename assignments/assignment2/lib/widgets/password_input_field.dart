@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class PasswordInput extends StatefulWidget {
-  const PasswordInput({super.key, required this.label, required this.hintText});
+  const PasswordInput(
+      {super.key,
+      required this.label,
+      required this.hintText,
+      required this.setPassword});
 
   final String label;
   final String? hintText;
+  final void Function(String password) setPassword;
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();
@@ -12,9 +17,12 @@ class PasswordInput extends StatefulWidget {
 
 class _PasswordInputState extends State<PasswordInput> {
   bool _showError = false;
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    widget.setPassword(_passwordController.text);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -26,6 +34,7 @@ class _PasswordInputState extends State<PasswordInput> {
               _showError = password.length > 20;
             });
           },
+          controller: _passwordController,
           style: TextStyle(color: Theme.of(context).colorScheme.secondary),
           decoration: InputDecoration(
             label: Text(

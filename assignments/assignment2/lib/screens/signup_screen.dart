@@ -5,6 +5,11 @@ import 'package:assignment2/widgets/signup_button.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final _firebase = FirebaseAuth.instance;
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -14,6 +19,21 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   var brightnessToggleIndex = 1;
+
+  late String emailAddress;
+  late String password;
+
+  void createUser() async {
+    final userCredentials = await _firebase.createUserWithEmailAndPassword(
+      email: emailAddress,
+      password: password,
+    );
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userCredentials.user!.uid)
+        .set({'email': emailAddress});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,25 +96,57 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                   const SizedBox(height: 45),
-                  const EmailInput(),
-                  const Row(
+                  EmailInput(
+                    setEmail: (email) {
+                      emailAddress = email;
+                    },
+                  ),
+                  Row(
                     children: [
                       Expanded(
                         child: PasswordInput(
                           label: 'Password',
                           hintText: 'Create Password',
+                          setPassword: (pass) {
+                            password = pass;
+                          },
                         ),
                       ),
-                      SizedBox(width: 35),
+                      const SizedBox(width: 35),
                       Expanded(
                         child: PasswordInput(
                           label: 'Password',
                           hintText: 'Confirm Password',
+                          setPassword: (pass) {
+                            password = pass;
+                          },
                         ),
                       ),
                     ],
                   ),
-                  const SignUpButton(),
+                  FilledButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    onPressed: createUser,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(18),
+                          child: Text(
+                            'Create account',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     children: [

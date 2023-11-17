@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class EmailInput extends StatefulWidget {
-  const EmailInput({super.key});
+  const EmailInput({super.key, required this.setEmail});
+
+  final void Function(String email) setEmail;
 
   @override
   State<EmailInput> createState() => _EmailInputState();
@@ -10,8 +12,12 @@ class EmailInput extends StatefulWidget {
 class _EmailInputState extends State<EmailInput> {
   bool _showError = false;
 
+  final _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    widget.setEmail(_emailController.text);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,6 +28,7 @@ class _EmailInputState extends State<EmailInput> {
               _showError = email.length > 50;
             });
           },
+          controller: _emailController,
           style: TextStyle(color: Theme.of(context).colorScheme.secondary),
           decoration: InputDecoration(
             label: Text(
