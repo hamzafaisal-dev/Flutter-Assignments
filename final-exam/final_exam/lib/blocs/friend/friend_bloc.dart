@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:final_exam/core/friends/friends_repository.dart';
+import 'package:final_exam/models/final_models/expense_model.dart';
 import 'package:final_exam/models/friends_model.dart';
 
 part 'friend_event.dart';
@@ -10,6 +11,16 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   final FriendsRepository friendsRepository;
 
   FriendBloc({required this.friendsRepository}) : super(FriendInitial()) {
+    on<FetchExpensesEvent>((event, emit) async {
+      try {
+        emit(FriendLoading());
+        ExpenseModel fetchedExpense = await friendsRepository.fetchExpense();
+        emit(ExpenseLoaded(expense: fetchedExpense));
+      } catch (error) {
+        emit(FriendError(errorMessage: error.toString()));
+      }
+    });
+
     // fetch friends
     on<FetchFriendsEvent>((event, emit) {
       try {

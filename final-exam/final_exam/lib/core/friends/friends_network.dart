@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_exam/models/final_models/expense_model.dart';
+import 'package:final_exam/models/final_models/transaction_model.dart';
 import 'package:final_exam/models/friends_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,6 +12,23 @@ class FriendsFirebaseClient {
     required this.firebaseAuth,
     required this.firestore,
   });
+
+  Future<ExpenseModel> fetchExpense() async {
+    final expensesCollection = firestore.collection('expenses');
+
+    QuerySnapshot docSnapshot = await expensesCollection.limit(1).get();
+    print('we here');
+
+    // Get the first document in the QuerySnapshot
+    QueryDocumentSnapshot doc = docSnapshot.docs.first;
+
+    // Call the data() method on the document to get a Map<String, dynamic>
+    final transactionMap = doc.data() as Map<String, dynamic>;
+
+    ExpenseModel expense = ExpenseModel.fromMap(transactionMap);
+
+    return expense;
+  }
 
   Future<void> addNewFriend(FriendModel friend) {
     final friendsCollection = firestore.collection('friends');

@@ -12,6 +12,12 @@ final class FriendsLoaded extends FriendState {
   FriendsLoaded({required this.friends});
 }
 
+final class ExpenseLoaded extends FriendState {
+  final ExpenseModel expense;
+
+  ExpenseLoaded({required this.expense});
+}
+
 final class FriendSuccess extends FriendState {}
 
 final class FriendError extends FriendState {

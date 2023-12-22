@@ -2,6 +2,12 @@ part of 'friend_bloc.dart';
 
 abstract class FriendEvent extends Equatable {}
 
+class FetchExpensesEvent extends FriendEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
 class FetchFriendsEvent extends FriendEvent {
   @override
   // TODO: implement props
