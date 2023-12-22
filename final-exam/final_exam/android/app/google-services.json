@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "663472703976",
+    "project_id": "final-exam-fb-631f4",
+    "storage_bucket": "final-exam-fb-631f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663472703976:android:4d18e98ed1dfcefaf4bc5d",
+        "android_client_info": {
+          "package_name": "com.example.final_exam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfIfIKPJURkCpBE0d2ByAnsC4sDVVSt0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

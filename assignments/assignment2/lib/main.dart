@@ -1,6 +1,8 @@
+import 'package:assignment2/screens/api_screen.dart';
 import 'package:assignment2/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'firebase_options.dart';
 
 void main() async {
@@ -10,6 +12,16 @@ void main() async {
   );
 
   runApp(const MyApp());
+=======
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+>>>>>>> Stashed changes
 }
 
 ThemeData lightMode = ThemeData(
@@ -30,7 +42,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightMode,
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      home: ApiPage(),
     );
   }
 }
