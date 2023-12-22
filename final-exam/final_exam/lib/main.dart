@@ -9,6 +9,7 @@ import 'package:final_exam/core/friends/friends_network.dart';
 import 'package:final_exam/core/friends/friends_repository.dart';
 import 'package:final_exam/firebase_options.dart';
 import 'package:final_exam/screens/login_screen.dart';
+import 'package:final_exam/screens/ui_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -105,7 +106,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: LoginScreen(),
+        home: const UIScreen(),
       ),
     );
   }

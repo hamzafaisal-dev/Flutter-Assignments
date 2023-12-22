@@ -1,6 +1,7 @@
 import 'package:final_exam/blocs/friend/friend_bloc.dart';
 import 'package:final_exam/models/friends_model.dart';
 import 'package:final_exam/screens/add_screen.dart';
+import 'package:final_exam/widgets/custom_grid.dart';
 import 'package:final_exam/widgets/friend_tile.dart';
 import 'package:final_exam/widgets/list_widget.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   List<FriendModel>? friends = snapshot.data;
 
                   return CustomList(friendsList: friends);
+                  // return CustomGrid(friendsList: friends);
+
                   // return ListView.builder(
                   //   itemCount: friends?.length ?? 0,
                   //   itemBuilder: (context, index) {
