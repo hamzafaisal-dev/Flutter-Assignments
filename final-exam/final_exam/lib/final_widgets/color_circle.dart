@@ -11,7 +11,7 @@ class ColorCircle extends StatelessWidget {
       margin: const EdgeInsets.only(left: 5),
       child: CircleAvatar(
         backgroundColor: color,
-        radius: 14,
+        radius: 12,
       ),
     );
   }

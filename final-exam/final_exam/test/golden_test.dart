@@ -1,5 +1,6 @@
 import 'package:final_exam/screens/login_screen.dart';
 import 'package:final_exam/screens/profile_screen.dart';
+import 'package:final_exam/screens/ui_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -10,9 +11,9 @@ void main() {
   });
 
 // test 1
-  testGoldens('', (tester) async {
+  testGoldens('UI Test for UI Screen', (tester) async {
     const widget = MaterialApp(
-      home: ProfileScreen(),
+      home: UIScreen(),
     );
 
     await tester.pumpWidgetBuilder(
@@ -20,20 +21,6 @@ void main() {
       surfaceSize: const Size(500, 1000),
     );
 
-    await screenMatchesGolden(tester, 'Profile Screen');
+    await screenMatchesGolden(tester, 'ui_sc');
   });
-
-// test 2
-  // testGoldens('', (tester) async {
-  //   const widget = MaterialApp(
-  //     home: SignUpScreen(),
-  //   );
-
-  //   await tester.pumpWidgetBuilder(
-  //     widget,
-  //     surfaceSize: const Size(500, 1000),
-  //   );
-
-  //   await screenMatchesGolden(tester, 'Sign Up');
-  // });
 }
